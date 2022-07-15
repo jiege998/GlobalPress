@@ -1,0 +1,38 @@
+#normal_login{
+    width: 300px;
+}
+#normal_login .login-form {
+    max-width: 300px;
+  }
+  #normal_login .login-form-forgot {
+    float: right;
+  }
+  #normal_login .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  #normal_login .login-form-button {
+    width: 100%;
+  }
+  .title{
+    position:fixed;
+    top: 25%;
+    font-family: serif;
+    font-size: 50px;
+    color: #fff;
+ }
+ .content{
+    background: rgb(35,39,65);
+    height:100vh;
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+ }
+ .loginBox{
+    width: 800px;
+    height: 500px;
+    display: flex ;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0, 0.3);
+ }
