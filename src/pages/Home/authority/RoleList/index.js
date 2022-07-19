@@ -65,7 +65,7 @@ export default function Index() {
         setTreeData(res.data)
       }
     })
-  }, [])
+  },[])
   const handleOk = () => {
     setIsModalVisible(false);
     dataSource.map(item=>{

@@ -90,12 +90,12 @@ const routes =  [
                     element: roots.indexOf('/home/news/add') !== -1?<NewsAdd />:<NotFind />,
                 },
                 {
-                    path:'update',
-                    element: roots.indexOf('/home/news/update') !== -1?<NewsUpdate />:<NotFind />,
+                    path:'update/:id',
+                    element: roots.indexOf('/home/news/update/:id') !== -1?<NewsUpdate />:<NotFind />,
                 },
                 {
                     path:'preview/:id',
-                    element: roots.indexOf('/home/preview:id') !== -1?<NewsPreview />:<NotFind />,
+                    element: roots.indexOf('/home/news/preview/:id') !== -1?<NewsPreview />:<NotFind />,
                 },
                 {
                     path:'draft',

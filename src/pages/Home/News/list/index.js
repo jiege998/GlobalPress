@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Index() {
+export default function index() {
   return (
     <div>list</div>
   )

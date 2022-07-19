@@ -24,7 +24,6 @@ export const userRoot = () => {
         "/home/homePage": 'Home',
         "/home/authority": 'Authority',
     }
-
     Promise.all([
         axios.get('/rights'),
         axios.get('/children'),
@@ -32,7 +31,7 @@ export const userRoot = () => {
         const { role: { rights: { checked } } } = JSON.parse(localStorage.getItem('token'))
         filterRoute = [...res[0].data, ...res[1].data]
         filterRoute = filterRoute.filter(val => {
-            if (LocalRouterMap[val.key] !== undefined && val.pagepermisson === 1 && checked.indexOf(val.key) !== -1) {
+            if (LocalRouterMap[val.key] !== undefined && (val.pagepermisson === 1 || val.routepermisson === 1) && checked.indexOf(val.key) !== -1 ) {
                 return true
             }
             return false

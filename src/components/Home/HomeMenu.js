@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useNavigate,useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import {PlusCircleOutlined} from '@ant-design/icons'
@@ -35,38 +35,41 @@ import  'nprogress/nprogress.css';
     "/home/authority":<PlusCircleOutlined />,
   }
 export default function HomeMenu() {
-    const {role:{rights:{checked}}} = JSON.parse(localStorage.getItem('token'))
-    axios.get('http://localhost:5000/rights?_embed=children').then(
-     res=>{
-       if(res.status === 200){
-         let newMenu = []
-         let obj ={}
-         res.data.forEach(item=>{
-          if(item.pagepermisson === 1 && checked.indexOf(item.key) !== -1){
-            obj={
-              key:item.key,
-              label:item.title,
-              icon:iconList[item.key]
-             }
-            if(item.children.length>0){
-               obj.children =[]
-                 item.children.forEach(child=>{
-                  if(child.pagepermisson === 1 && checked.indexOf(child.key) !== -1){
-                    obj.children.push({
-                      key:child.key,
-                      label:child.title,
-                      icon:iconList[child.key]
-                    })
-                  }
-                 })
+    useEffect(()=>{
+      const {role:{rights:{checked}}} = JSON.parse(localStorage.getItem('token'))
+      axios.get('http://localhost:5000/rights?_embed=children').then(
+       res=>{
+         if(res.status === 200){
+           let newMenu = []
+           let obj ={}
+           res.data.forEach(item=>{
+            if(item.pagepermisson === 1 && checked.indexOf(item.key) !== -1){
+              obj={
+                key:item.key,
+                label:item.title,
+                icon:iconList[item.key]
+               }
+              if(item.children.length>0){
+                 obj.children =[]
+                   item.children.forEach(child=>{
+                    if(child.pagepermisson === 1 && checked.indexOf(child.key) !== -1){
+                      obj.children.push({
+                        key:child.key,
+                        label:child.title,
+                        icon:iconList[child.key]
+                      })
+                    }
+                   })
+              }
+              newMenu = [...newMenu,obj]
             }
-            newMenu = [...newMenu,obj]
-          }
-         })
-         setMenu(newMenu)
-    }
+           })
+           setMenu(newMenu)
+      }
+    
+     })
+    },[])
   
-   },[])
     const [collapsed] = useState(false)
     const [menu,setMenu] = useState([])
     const navigate = useNavigate()

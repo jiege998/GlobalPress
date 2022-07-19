@@ -21,7 +21,7 @@ export default function Index() {
       setDataSource(res.data)
       userRoot()
     })
-  }, [])
+  },[])
   const columns = [
     {
       title: 'ID',
@@ -119,7 +119,7 @@ export default function Index() {
   };
   return (
     <div>
-      <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 5 }} />;
+      <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 5 }} rowKey={res=>res.id} />;
     </div>
   )
 }
