@@ -19,7 +19,7 @@ export default function Index() {
   const [htmlInfo,setHtmlInfo] = useState('')
   useEffect(()=>{
     axios.get('/categories').then(res=>{
-    if(res.status === 200){
+    if(res.data.length>0){
        setCategoriesList(res.data)
     }
       newsRef&&newsRef.current.setFieldsValue({
@@ -73,7 +73,7 @@ export default function Index() {
      content:htmlInfo,
      auditState:state,
     }).then(res=>{
-      if(res.status === 200){
+      if(res.data.length>0){
         if(state === 0){
           navigate('/home/news/draft')
         }

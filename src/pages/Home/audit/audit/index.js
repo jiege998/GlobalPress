@@ -15,7 +15,7 @@ export default function Index() {
       '3':'editor',
     }
     axios.get('/news?auditState=1&_expand=category').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setDataSource(roleObj[roleId] === 'superAdmin'?res.data:[...res.data.filter(
           val=>val.author === username)
           ,...res.data.filter(val=>val.region === region && val.roleId === 3)
@@ -81,7 +81,7 @@ export default function Index() {
           auditState:2,
           publishState:1
         }).then(res=>{
-          if(res.status === 200){
+          if(res.data.length>0){
             notification.info({
               message: `审核通过`,
               description:
@@ -95,7 +95,7 @@ export default function Index() {
         auditState:3,
         publishState:0
       }).then(res=>{
-        if(res.status === 200){
+        if(res.data.length>0){
           notification.info({
             message: `审核不通过`,
             description:

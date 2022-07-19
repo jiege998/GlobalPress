@@ -40,7 +40,7 @@ export default function Index() {
     }]
   const confirm = (row) => {
       axios.delete(`/roles/${row.id}`).then(res => {
-        if (res.status === 200) {
+        if (res.data.length>0) {
           setDataSource(dataSource.filter(val=>val.id !== row.id))
           message.success('删除成功');
         }
@@ -56,12 +56,12 @@ export default function Index() {
   };
   useEffect(() => {
     axios.get('/roles').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setDataSource(res.data)
       }
     })
     axios.get('/rights?_embed=children').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setTreeData(res.data)
       }
     })

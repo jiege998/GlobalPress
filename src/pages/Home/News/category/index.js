@@ -52,7 +52,7 @@ export default function Index() {
   const confirm = (row) => {
     setDataSource(dataSource.filter(item=>item.id !== row.id))
         axios.delete(`/categories/${row.id}`).then(res=>{
-          if(res.status === 200){
+          if(res.data.length>0){
              message.success('删除成功')
           }
         })

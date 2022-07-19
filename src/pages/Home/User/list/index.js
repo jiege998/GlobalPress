@@ -87,7 +87,7 @@ export default function Index() {
       '3':'editor',
     }
     axios.get('/users?_expand=role').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setDataSource(roleObj[roleId] === 'superAdmin'?res.data:[...res.data.filter(
           val=>val.username === username)
           ,...res.data.filter(val=>val.region === region && val.roleId === 3)
@@ -95,19 +95,19 @@ export default function Index() {
       }
     })
     axios.get('/regions').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setTreeData(res.data)
       }
     })
     axios.get('/roles').then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setRoleList(res.data)
       }
     })
   }, [])
   const confirm = (row) => {
     axios.delete(`/users/${row.id}`).then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setDataSource(dataSource.filter(val => val.id !== row.id))
         message.success('删除成功');
       }
@@ -174,7 +174,7 @@ export default function Index() {
       axios.patch(`/users/${current.id}`, {
         ...value,
       }).then(res => {
-        if(res.status === 200){
+        if(res.data.length>0){
           setDataSource(dataSource.map(item=>{
             if(item.id === current?.id){
                 return {

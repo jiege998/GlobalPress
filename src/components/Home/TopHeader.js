@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React,{useState } from 'react'
 import { Layout,Dropdown, Menu, Space,Avatar  } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import {changeCollapsed } from '../../store/features/collapsedSlice';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -8,8 +10,10 @@ import {
   } from '@ant-design/icons';
 import {useNavigate} from'react-router-dom'
 const { Header} = Layout;
-function TopHeader() {
-    const [collapsed, setCollapsed] = useState(false);
+function TopHeader() { 
+const {siderState}=useSelector((state) => state.collapsed)
+const dispatch = useDispatch();
+    const [collapsed, setCollapsed] = useState(siderState);
     const navigate = useNavigate()
   const onClick = ({ key }) => {
     if(key === '4'){
@@ -37,13 +41,17 @@ const menu = (
     ]}
   />
 );
+const changeState = ()=>{
+  setCollapsed(!collapsed)
+  dispatch(changeCollapsed({collapsed:!collapsed}))
+}
   return (
     <Header
         className="site-layout-background"
         >
              {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
-            onClick: () => setCollapsed(!collapsed) ,
+            onClick: () => changeState(),
           })}
           <div style={{float:'right'}}>
             <span style={{margin:'0 5px'}}>欢迎<span style={{color:'blue',margin:'0 5px',fontSize:'16px'}}>{username}</span>回来</span>

@@ -17,7 +17,7 @@ export default function Index() {
   const [htmlInfo,setHtmlInfo] = useState('')
   useEffect(()=>{
     axios.get('/categories').then(res=>{
-    if(res.status === 200){
+    if(res.data.length>0){
        setCategoriesList(res.data)
     }
     })
@@ -75,7 +75,7 @@ export default function Index() {
      view:0,
      publishTime:0
     }).then(res=>{
-      if(res.status === 201){
+      if(res.data.length>0){
         if(state === 0){
           navigate('/home/news/draft')
         }

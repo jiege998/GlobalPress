@@ -5,6 +5,7 @@ import { Layout, Menu } from 'antd';
 import {PlusCircleOutlined} from '@ant-design/icons'
 import axios from 'axios';
 import nprogress from 'nprogress';
+import { useSelector } from 'react-redux';
 import  'nprogress/nprogress.css';
   const { Sider} = Layout;
   const iconList = {
@@ -35,11 +36,12 @@ import  'nprogress/nprogress.css';
     "/home/authority":<PlusCircleOutlined />,
   }
 export default function HomeMenu() {
+  const {siderState}=useSelector((state) => state.collapsed)
     useEffect(()=>{
       const {role:{rights:{checked}}} = JSON.parse(localStorage.getItem('token'))
       axios.get('http://localhost:5000/rights?_embed=children').then(
        res=>{
-         if(res.status === 200){
+         if(res.data.length>0){
            let newMenu = []
            let obj ={}
            res.data.forEach(item=>{
@@ -69,8 +71,6 @@ export default function HomeMenu() {
     
      })
     },[])
-  
-    const [collapsed] = useState(false)
     const [menu,setMenu] = useState([])
     const navigate = useNavigate()
     const openKeys = ['/home/'+useLocation().pathname.split('/')[2]]
@@ -81,9 +81,9 @@ export default function HomeMenu() {
       nprogress.done()
     }
   return (
-    <Sider  trigger={null} collapsible collapsed={collapsed}>
+    <Sider  trigger={null} collapsible collapsed={siderState} collapsedWidth='100'>
       <div style={{ display: "flex", height: "920px", flexDirection: "column"}}>
-        <div className="logo">全球新闻发布系统</div>
+        <div className="logo">{!siderState?'全球新闻发布系统':''}</div>
           <Menu
               theme="dark"
               mode="inline"

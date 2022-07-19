@@ -66,7 +66,7 @@ export default function Index() {
     }]
   const confirm = (row) => {
     axios.delete(`/news/${row.id}`).then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         setDataSource(dataSource.filter(data => data.id !== row.id))
         message.success('删除成功');
       }
@@ -97,7 +97,7 @@ export default function Index() {
     axios.patch(`/news/${id}`, {
       auditState: 1
     }).then(res => {
-      if (res.status === 200) {
+      if (res.data.length>0) {
         notification.info({
           message: `添加成功`,
           description:

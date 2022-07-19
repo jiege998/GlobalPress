@@ -63,7 +63,7 @@ export default function Index() {
     row.pagepermisson = row.pagepermisson === 1 ?  0 : 1
     if (row.rightId) {
       axios.patch(`/children/${row.id}`,{pagepermisson:row.pagepermisson}).then(res => {
-        if (res.status === 200) {
+        if (res.data.length>0) {
           message.success('修改成功');
           setDataSource([...dataSource])
         }
@@ -77,7 +77,7 @@ export default function Index() {
     }
     else {
       axios.patch(`/rights/${row.id}`,{pagepermisson:row.pagepermisson}).then(res => {
-        if (res.status === 200) {
+        if (res.data.length>0) {
           message.success('修改成功');
           setDataSource([...dataSource])
         }
@@ -91,7 +91,7 @@ export default function Index() {
       let list = dataSource.filter(data => data.id === row.rightId)
       list[0].children = list[0].children.filter(data => data.id !== row.id)
       axios.delete(`/children/${row.id}`).then(res => {
-        if (res.status === 200) {
+        if (res.data.length>0) {
           setDataSource([...dataSource])
           message.success('删除成功');
         }
@@ -105,7 +105,7 @@ export default function Index() {
     }
     else {
       axios.delete(`/rights/${row.id}`).then(res => {
-        if (res.status === 200) {
+        if (res.data.length>0) {
           setDataSource(dataSource.filter(data => data.id !== row.id))
           message.success('删除成功');
         }

@@ -66,7 +66,7 @@ export default function Index() {
         axios.patch(`/news/${row.id}`,{
           auditState:0
         }).then(res=>{
-          if(res.status === 200){
+          if(res.data.length>0){
             notification.info({
               message: `撤销成功`,
               description:
