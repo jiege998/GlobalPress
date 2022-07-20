@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Row, Col, List, Avatar, Button, Drawer } from "antd";
 import {
-  SettingOutlined,
+  PieChartOutlined,
   EditOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
@@ -63,7 +63,7 @@ export default function Index() {
     // 指定图表的配置项和数据
     var option = {
       title: {
-        text: "ECharts 入门示例",
+        text: "新闻分类图示",
       },
       tooltip: {},
       legend: {
@@ -199,7 +199,7 @@ export default function Index() {
                 />
               }
               actions={[
-                <SettingOutlined
+                <PieChartOutlined
                   key="setting"
                   onClick={() => {
                     setTimeout(() => {
@@ -228,9 +228,6 @@ export default function Index() {
             </Card>
           </Col>
         </Row>
-        <Button type="primary" onClick={showDrawer}>
-          Open
-        </Button>
         <Drawer
           title="我的新闻"
           placement="right"
